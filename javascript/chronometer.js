@@ -1,36 +1,40 @@
+
 class Chronometer {
   constructor() {
-    this.currentTime = 0
-    this.intervalId = 0
+    this.currentTime = 0;
+    this.intervalId = 0;
   }
+
   startClick(callback) {
     this.intervalId = setInterval(() => {
-      this.currentTime += 1;
-    } , 1000);
+      this.currentTime++;
+      if (callback) callback();
+    }, 1000);
   }
 
   getMinutes() {
-    return Number(Math.trunc(this.currentTime / 60))
+    return Math.floor(this.currentTime / 60);
   }
+
   getSeconds() {
-    return Number(Math.round(this.currentTime % 60))
+    return this.currentTime % 60;
   }
-  twoDigitsNumber(num) {
-  if (num < 10) {
-    return `0${num}`
+
+  twoDigitsNumber(value) {
+    if (value < 10) return `0${value}`;
+    return `${value}`;
   }
-    else {
-    return `${num}`
-    }
-  }
-  
   stopClick() {
-   clearInterval(this.intervalId)
+    clearInterval(this.intervalId);
   }
+
   resetClick() {
-  this.currentTime=0;
+    this.currentTime = 0;
   }
   splitClick() {
-   return `${this.twoDigitsNumber(this.getMinutes())}:${this.twoDigitsNumber(this.getSeconds())}`
+    return `${this.twoDigitsNumber(this.getMinutes())}:${this.twoDigitsNumber(
+      this.getSeconds()
+    )}`;
   }
+
 }
